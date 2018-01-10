@@ -14,11 +14,16 @@
         <activity
             android:name=".ui.FlicksActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.FilmDetailsActivity"
+            android:parentActivityName="com.example.ahirani.flicks.ui.FlicksActivity" />
     </application>
 
 </manifest>

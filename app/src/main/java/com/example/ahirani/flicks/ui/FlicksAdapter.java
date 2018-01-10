@@ -1,6 +1,7 @@
 package com.example.ahirani.flicks.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ahirani.flicks.R;
 import com.example.ahirani.flicks.ui.models.Movie;
@@ -19,11 +21,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 class FlicksAdapter extends RecyclerView.Adapter {
-    private static final String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+    private final String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
     private List<Movie> movies;
     private boolean isLandscape;
 
-    static class MovieViewHolder extends RecyclerView.ViewHolder {
+    static class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        IMyViewHolderClicks mListener;
 
         @BindView(R.id.film_title_text)
         TextView filmText;
@@ -34,9 +38,21 @@ class FlicksAdapter extends RecyclerView.Adapter {
         @BindView(R.id.film_thumbnail)
         ImageView filmImage;
 
-        MovieViewHolder(View v) {
+        MovieViewHolder(View v, IMyViewHolderClicks listener) {
             super(v);
             ButterKnife.bind(this, v);
+
+            mListener = listener;
+            v.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            mListener.onListElementSelected(view, getAdapterPosition());
+        }
+
+        public interface IMyViewHolderClicks {
+            void onListElementSelected(View caller, int position);
         }
     }
 
@@ -46,11 +62,24 @@ class FlicksAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MovieViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.movie_item, parent, false);
 
-        return new MovieViewHolder(v);
+
+        return new MovieViewHolder(v, new MovieViewHolder.IMyViewHolderClicks() {
+            @Override
+            public void onListElementSelected(View caller, int position) {
+                Intent intent = new Intent(parent.getContext(), FilmDetailsActivity.class);
+
+                intent.putExtra("film_details_title_text", movies.get(position).getTitle());
+                intent.putExtra("film_details_description_text", movies.get(position).getOverviewText());
+                intent.putExtra("film_details_rating_bar", movies.get(position).getVoteAverage());
+                intent.putExtra("film_details_release_date_text", movies.get(position).getReleaseDate());
+
+                parent.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
