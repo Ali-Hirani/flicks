@@ -58,8 +58,11 @@ public class FlicksActivity extends AppCompatActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         isLandscape = newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE;
-        recyclerView.setAdapter(adapter);
-        adapter.orientationChanged(isLandscape);
+
+        if (adapter != null) {
+            recyclerView.setAdapter(adapter);
+            adapter.orientationChanged(isLandscape);
+        }
 
         Log.d("tag", "isLandscape: " + String.valueOf(isLandscape));
     }
