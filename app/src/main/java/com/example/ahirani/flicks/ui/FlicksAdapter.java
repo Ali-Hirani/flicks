@@ -15,21 +15,28 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 class FlicksAdapter extends RecyclerView.Adapter {
     private static final String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
     private List<Movie> movies;
     private boolean isLandscape;
 
-    public static class MovieViewHolder extends RecyclerView.ViewHolder {
+    static class MovieViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.film_title_text)
         TextView filmText;
+
+        @BindView(R.id.film_overview_text)
         TextView overviewText;
+
+        @BindView(R.id.film_thumbnail)
         ImageView filmImage;
 
         MovieViewHolder(View v) {
             super(v);
-            filmText = v.findViewById(R.id.film_title_text);
-            overviewText = v.findViewById(R.id.film_overview_text);
-            filmImage = v.findViewById(R.id.film_thumbnail);
+            ButterKnife.bind(this, v);
         }
     }
 
@@ -68,7 +75,7 @@ class FlicksAdapter extends RecyclerView.Adapter {
         return movies.size();
     }
 
-    public void orientationChanged(boolean isLandscape) {
+    void orientationChanged(boolean isLandscape) {
         this.isLandscape = isLandscape;
     }
 }
