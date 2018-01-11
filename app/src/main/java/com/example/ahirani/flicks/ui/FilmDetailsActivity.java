@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -43,6 +42,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
 
     String trailerUrl = "";
 
+    // TODO: Extract to some static constants class
     private final String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
     private final String YOUTUBE_BASE_URL = "https://www.youtube.com/watch?v=";
 
@@ -56,7 +56,10 @@ public class FilmDetailsActivity extends AppCompatActivity {
 
         titleText.setText(intent.getStringExtra("film_details_title_text"));
         descriptionText.setText(intent.getStringExtra("film_details_description_text"));
-        releaseDateText.setText(String.format("Release Date: %s", intent.getStringExtra("film_details_release_date_text")));
+        releaseDateText.setText(
+                String.format(
+                        "Release Date: %s",
+                        intent.getStringExtra("film_details_release_date_text")));
 
         double rating = intent.getDoubleExtra("film_details_rating_bar", 0);
         ratingBar.setRating((float) rating);
@@ -66,16 +69,12 @@ public class FilmDetailsActivity extends AppCompatActivity {
                 .into(trailerThumbnail);
 
         MovieDBService dbService = MovieDBService.retrofit.create(MovieDBService.class);
-        final Call<VideoResponse> call = dbService.getMovieVideos(intent.getIntExtra("film_details_id", 0));
-
-        Log.d("tag", "enqueue");
+        final Call<VideoResponse> call = dbService.getMovieVideos(
+                intent.getIntExtra("film_details_id", 0));
 
         call.enqueue(new Callback<VideoResponse>() {
             @Override
             public void onResponse(Call<VideoResponse> call, Response<VideoResponse> response) {
-
-                Log.d("tag", "wow");
-
                 List<Video> videoList = response.body().getVideos();
 
                 for (int i = 0; i < videoList.size(); i++) {

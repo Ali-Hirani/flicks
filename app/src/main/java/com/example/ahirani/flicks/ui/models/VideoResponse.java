@@ -6,10 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VideoResponse {
-
-    int id;
+    private int id;
     @SerializedName("results")
-    List<Video> videos;
+    private List<Video> videos;
+
+    public int getId() {
+        return id;
+    }
 
     public List<Video> getVideos() {
         return videos;

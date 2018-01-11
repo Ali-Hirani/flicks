@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.example.ahirani.flicks.R;
 import com.example.ahirani.flicks.ui.models.MovieDBService;
@@ -18,7 +17,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FlicksActivity extends AppCompatActivity {
+
     @BindView(R.id.my_recycler_view)
+
     RecyclerView recyclerView;
     private FlicksAdapter adapter;
     private boolean isLandscape = false;
@@ -47,7 +48,7 @@ public class FlicksActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<MovieResponse> call, Throwable t) {
-
+                // TODO: Handle failure
             }
         });
     }
@@ -61,8 +62,6 @@ public class FlicksActivity extends AppCompatActivity {
             recyclerView.setAdapter(adapter);
             adapter.orientationChanged(isLandscape);
         }
-
-        Log.d("tag", "isLandscape: " + String.valueOf(isLandscape));
     }
 
 }

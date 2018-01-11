@@ -3,7 +3,6 @@ package com.example.ahirani.flicks.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +25,6 @@ class FlicksAdapter extends RecyclerView.Adapter {
 
     static class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        IMyViewHolderClicks mListener;
-
         @BindView(R.id.film_title_text)
         TextView filmText;
 
@@ -36,6 +33,8 @@ class FlicksAdapter extends RecyclerView.Adapter {
 
         @BindView(R.id.film_thumbnail)
         ImageView filmImage;
+
+        IMyViewHolderClicks mListener;
 
         MovieViewHolder(View v, IMyViewHolderClicks listener) {
             super(v);
@@ -71,6 +70,7 @@ class FlicksAdapter extends RecyclerView.Adapter {
             public void onListElementSelected(View caller, int position) {
                 Intent intent = new Intent(parent.getContext(), FilmDetailsActivity.class);
 
+                // TODO: Key strings should be constants instead of hardcoded
                 intent.putExtra("film_details_title_text", movies.get(position).getTitle());
                 intent.putExtra("film_details_description_text", movies.get(position).getOverviewText());
                 intent.putExtra("film_details_rating_bar", movies.get(position).getVoteAverage());
@@ -92,10 +92,8 @@ class FlicksAdapter extends RecyclerView.Adapter {
         Context context = ((MovieViewHolder) holder).filmImage.getContext();
 
         if (isLandscape) {
-            Log.d("tag", "backdrop");
             Picasso.with(context).load(IMAGE_BASE_URL + movies.get(position).getBackdropPath()).into(movieViewHolder.filmImage);
         } else {
-            Log.d("tag", "poster");
             Picasso.with(context).load(IMAGE_BASE_URL + movies.get(position).getPosterPath()).into(movieViewHolder.filmImage);
         }
     }

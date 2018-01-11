@@ -3,26 +3,18 @@ package com.example.ahirani.flicks.ui.models;
 import com.google.gson.annotations.SerializedName;
 
 public class Video {
-
     String id;
-
     @SerializedName("iso_639_1")
     String iso639;
-
     @SerializedName("iso_3166_1")
     String iso3166;
-
     String key;
     String name;
-
     @SerializedName("site")
     String siteHost;
-
     @SerializedName("size")
     int videoReolution;
-
     String type;
-
 
     public String getId() {
         return id;

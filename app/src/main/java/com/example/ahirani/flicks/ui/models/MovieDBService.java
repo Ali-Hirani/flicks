@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface MovieDBService {
-    // TODO: Dynamically add api_key
+    // TODO: Dynamically insert api_key
     @GET("movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")
     Call<MovieResponse> getMovies();
 
