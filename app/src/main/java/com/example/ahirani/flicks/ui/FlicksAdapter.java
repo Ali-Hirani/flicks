@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.ahirani.flicks.R;
 import com.example.ahirani.flicks.ui.models.Movie;
@@ -76,6 +75,8 @@ class FlicksAdapter extends RecyclerView.Adapter {
                 intent.putExtra("film_details_description_text", movies.get(position).getOverviewText());
                 intent.putExtra("film_details_rating_bar", movies.get(position).getVoteAverage());
                 intent.putExtra("film_details_release_date_text", movies.get(position).getReleaseDate());
+                intent.putExtra("film_details_trailer_thumbnail", movies.get(position).getBackdropPath());
+                intent.putExtra("film_details_id", movies.get(position).getId());
 
                 parent.getContext().startActivity(intent);
             }

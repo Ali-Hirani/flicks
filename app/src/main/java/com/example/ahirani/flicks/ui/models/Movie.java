@@ -37,7 +37,6 @@ public class Movie {
     @SerializedName("release_date")
     String releaseDate;
 
-
     public int getVoteCount() {
         return voteCount;
     }

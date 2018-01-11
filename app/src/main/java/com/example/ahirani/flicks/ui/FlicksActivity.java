@@ -29,8 +29,6 @@ public class FlicksActivity extends AppCompatActivity {
         setContentView(R.layout.activity_flicks);
         ButterKnife.bind(this);
 
-        Log.d("tag", "onCreate");
-
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 

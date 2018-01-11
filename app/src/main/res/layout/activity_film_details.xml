@@ -6,6 +6,31 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="220dp">
+
+        <ImageView
+            android:id="@+id/trailer_thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#94000000" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_play_circle_outline_white_48dp" />
+
+    </FrameLayout>
+
+
     <TextView
         android:id="@+id/film_details_title_text"
         android:layout_width="wrap_content"
